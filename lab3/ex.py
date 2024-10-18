@@ -1,5 +1,5 @@
 from datetime import datetime
-def get_age():
+def get_age_scenario():
     birth_year = int(input('Введите год рождения: '))
     current_year = datetime.now().year
     age = current_year - birth_year
@@ -10,22 +10,21 @@ def get_age():
     else:
         print('Вы успешно дожили до пенсии, поздравляем!')
 
-def get_user_info():
+def get_user_info_scenario():
     name = input('Введите фамилию, имя и отчество: ')
     name_list = name.split()
     print('Фамилия: {}\nИмя: {}\nОтчество: {}'.format(*name_list))
 
-def get_subjects():
+def delete_bad_subjects_scenario():
     subjects = ['Математика', 'Физика', 'Химия', 'Биология', 'География', 'История']
     for i, subject in enumerate(subjects, 1):
         print(i, subject, sep=': ')
     print('Введите номера предметов, которые вам не нравятся (через пробел):')
     bad_subjects = list(map(int, input().split()))
-    for subject in bad_subjects:
-        del subjects[subject - 1]
+    subjects = [subject for i, subject in enumerate(subjects) if i+1 not in bad_subjects]
     print('Остались:', ', '.join(subjects))
 
 if __name__ == '__main__':
-    get_user_info()
-    get_age()
-    get_subjects()
+    get_user_info_scenario()
+    get_age_scenario()
+    delete_bad_subjects_scenario()
