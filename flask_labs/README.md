@@ -1,1 +1,1 @@
-Make sure to install all the libraries from Requirements.txt
+Make sure to install all the libraries from requirements.txt
