@@ -1,0 +1,120 @@
+swagger: '2.0'
+info:
+  description: API for working with items
+  version: '1.0.0'
+  title: Items API
+host: localhost:5000
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /items:
+    get:
+      summary: Get all items
+      responses:
+        200:
+          description: Items list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+        500:
+          description: Internal Server Error
+    post:
+      summary: Create new item
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: item
+          description: Item object
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Item name
+      responses:
+        201:
+          description: Item created
+          schema:
+            $ref: '#/definitions/Item'
+        400:
+          description: Bad request
+        500:
+          description: Internal Server Error
+  /items/{item_id}:
+    get:
+      summary: Get item by ID
+      parameters:
+        - in: path
+          name: item_id
+          description: Item ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Item
+          schema:
+            $ref: '#/definitions/Item'
+        404:
+          description: Item not found
+        500:
+          description: Internal Server Error
+    put:
+      summary: Update item
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: item_id
+          description: Item ID
+          required: true
+          type: integer
+        - in: body
+          name: item
+          description: Item object
+          schema:
+            properties:
+              name:
+                type: string
+                description: New item name
+      responses:
+        200:
+          description: Item updated
+          schema:
+            $ref: '#/definitions/Item'
+        400:
+          description: Bad request
+        404:
+          description: Item not found
+        500:
+          description: Internal Server Error
+    delete:
+      summary: Delete item
+      parameters:
+        - in: path
+          name: item_id
+          description: Item ID
+          required: true
+          type: integer
+      responses:
+        204:
+          description: Item deleted
+        404:
+          description: Item not found
+        500:
+          description: Internal Server Error
+definitions:
+  Item:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+        description: Item name
