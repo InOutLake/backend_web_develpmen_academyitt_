@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Us</title>
+</head>
+
+<body>
+    <h1>Contact Us</h1>
+    {% for line in errors %}
+        <p style="color:red">{{ line }}</p>
+    {% endfor %}
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ name }}" required><br><br>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" value="{{ phone }}" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ email }}" required><br><br>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required>{{ message }}</textarea><br><br>
+        <input type="submit" value="Send">
+    </form>
+    {% if message_out|length > 0 %}
+        <h2>Мы отправили ваше сообщение:</h2>
+        {% for line in message_out %}
+            <p>{{ line }}</p>
+        {% endfor %}
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+swagger: '2.0'
+info:
+  description: API for working with users
+  version: '1.0.0'
+  title: Users API
+host: localhost:5000
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        200:
+          description: Users list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        500:
+          description: Internal Server Error
+    post:
+      summary: Create new user
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: User object
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: User name
+      responses:
+        201:
+          description: User created
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Bad request
+        500:
+          description: Internal Server Error
+  /users/{user_id}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: User
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: User not found
+        500:
+          description: Internal Server Error
+    put:
+      summary: Update user
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          type: integer
+        - in: body
+          name: user
+          description: User object
+          schema:
+            properties:
+              name:
+                type: string
+                description: New user name
+      responses:
+        200:
+          description: User updated
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Bad request
+        404:
+          description: User not found
+        500:
+          description: Internal Server Error
+    delete:
+      summary: Delete user
+      parameters:
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          type: integer
+      responses:
+        204:
+          description: User deleted
+        404:
+          description: User not found
+        500:
+          description: Internal Server Error
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+        description: User name
